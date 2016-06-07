@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+    <bean class="com.husky.register.ServiceRegister" init-method="init" lazy-init="false">
+
+        <property name="services">
+            <map>
+                <entry key="http://www.husky.com.cn/SendService_1.0" value-ref="sendService"/>
+                <entry key="http://www.husky.com.cn/EchoService_1.0" value-ref="echoService"/>
+            </map>
+        </property>
+    </bean>
+
+
+
+    <bean id="echoService" class="com.husky.server.test.service.impl.EchoServiceImpl">
+
+    </bean>
+    <bean id="sendService" class="com.husky.server.test.service.impl.SendServiceImpl">
+
+    </bean>
+
+</beans>

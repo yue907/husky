@@ -11,9 +11,10 @@ public class EchoServiceImpl implements EchoService{
     }
 
     public double divide(double x, double y) {
-        if(0 != y){
-            return x/y;
-        }
-        return 0;
+//        if(0 != y){
+//            return x/y;
+//        }
+//        return 0;
+        return x/y;
     }
 }

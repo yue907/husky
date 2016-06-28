@@ -12,19 +12,5 @@ public class Server {
         ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("classpath*:config/spring/appcontext-service.xml");
         context.start();
 
-//        try {
-//            Thread.sleep(1000*1000000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            System.out.println("任意键退出");
-//            System.in.read();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        context.stop();
-//        System.out.println("服务退出");
     }
 }

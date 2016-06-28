@@ -16,7 +16,7 @@ public class ServiceManager {
     //注册参数
     private ServiceConfig serviceConfig;
     //服务map
-    private Map<String,Object> services = new ConcurrentHashMap<String, Object>();
+    private Map<String,Object> serviceMap = new ConcurrentHashMap<String, Object>();
     //单列模式下的注册中心
     private static volatile ServiceManager serviceManager = new ServiceManager();
     private ServiceManager(){
@@ -27,14 +27,14 @@ public class ServiceManager {
     }
 
     public void addService(String serviceUrl,Object obj){
-        services.put(serviceUrl,obj);
+        serviceMap.put(serviceUrl, obj);
     }
 
     public int getServiceCount(){
-        return services.size();
+        return serviceMap.size();
     }
     public Object getService(String serviceUrl){
-        return services.get(serviceUrl);
+        return serviceMap.get(serviceUrl);
     }
 
     public ServiceConfig getServiceConfig() {
@@ -43,5 +43,9 @@ public class ServiceManager {
 
     public void setServiceConfig(ServiceConfig serviceConfig) {
         this.serviceConfig = serviceConfig;
+    }
+
+    public Map<String, Object> getServiceMap() {
+        return serviceMap;
     }
 }

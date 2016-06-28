@@ -13,6 +13,7 @@
         <module>husky-server</module>
         <module>husky-client-test</module>
         <module>husky-server-test</module>
+        <module>husky-common</module>
 
     </modules>
     <packaging>pom</packaging>

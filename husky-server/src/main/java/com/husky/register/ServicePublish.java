@@ -1,5 +1,7 @@
 package com.husky.register;
 
+import com.husky.common.bean.InvocationRequest;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
@@ -23,18 +25,19 @@ public class ServicePublish {
             try {
                 final Socket socket = server.accept();
                 new Thread(new Runnable() {
-                    @Override
+
                     public void run() {
                         try {
                             try {
                                 //使用对象流
                                 ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                                 try {
+                                    InvocationRequest request = (InvocationRequest) input.readObject();
                                     //按照序列化的顺序，依次读取要调用的 方法 参数类型 参数
-                                    String serviceUrl = input.readUTF();
-                                    String methodName = input.readUTF();
-                                    Class<?>[] parameterTypes = (Class<?>[]) input.readObject();
-                                    Object[] arguments = (Object[]) input.readObject();
+                                    String serviceUrl = request.getServiceUrl();
+                                    String methodName = request.getMethodName();
+                                    Class<?>[] parameterTypes = (Class<?>[]) request.getArgumentsType();
+                                    Object[] arguments = (Object[]) request.getArguments();
 
                                     //构建返回流
                                     ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());

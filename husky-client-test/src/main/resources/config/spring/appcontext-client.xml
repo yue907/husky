@@ -10,14 +10,14 @@
 
 
 
-    <bean id="sendService" class="com.husky.client.proxy.ProxyBeanFactory" lazy-init="false" init-method="init">
+    <bean id="sendService" class="com.husky.client.bean.ProxyBeanFactory" lazy-init="false" init-method="init">
         <property name="serviceUrl" value="http://www.husky.com.cn/SendService_1.0"></property>
         <property name="interName" value="com.husky.server.test.service.SendService"></property>
         <property name="host" value="127.0.0.1"/>
         <property name="port" value="1234"/>
     </bean>
 
-    <bean id="echoService" class="com.husky.client.proxy.ProxyBeanFactory" lazy-init="false" init-method="init">
+    <bean id="echoService" class="com.husky.client.bean.ProxyBeanFactory" lazy-init="false" init-method="init">
         <property name="serviceUrl" value="http://www.husky.com.cn/EchoService_1.0"></property>
         <property name="interName" value="com.husky.server.test.service.EchoService"></property>
         <property name="host" value="127.0.0.1"/>

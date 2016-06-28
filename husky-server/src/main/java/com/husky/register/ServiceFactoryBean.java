@@ -1,19 +1,20 @@
 package com.husky.register;
 
 import com.husky.bean.ServiceConfig;
+import com.husky.netty.RpcServer;
 
 import java.util.Map;
 
 /**
  * Created by google on 16/5/27.
  */
-public class ServiceRegister {
+public class ServiceFactoryBean {
     //端口
     private int port;
     //服务Map
     private Map<String,Object> services;
 
-    public ServiceRegister(){
+    public ServiceFactoryBean(){
         this.port = 1234;
     }
 
@@ -30,7 +31,8 @@ public class ServiceRegister {
     }
     //服务发布
     public void publish() throws Exception{
-        ServicePublish.start();
+//        ServicePublish.start();
+        RpcServer.run();
     }
     public Map<String, Object> getServices() {
         return services;

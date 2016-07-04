@@ -3,27 +3,20 @@ package com.husky.common.bean;
 import java.io.Serializable;
 
 /**
+ * RPC客户端请求实体类
  * Created by google on 16/6/23.
  */
 public class InvocationRequest implements Serializable {
     private static final long serialVersionUID = 5868293976875578768L;
     //服务连接
     private String serviceUrl;
-    /**
-     * 方法名
-     */
+    //方法名
     private String methodName;
-    /**
-     * 参数类型列表
-     */
+    //参数类型列表
     private Class[] argumentsType;
-    /**
-     * 参数列表
-     */
+    // 参数列表
     private Object[] arguments;
-    /**
-     * 调用的接口名
-     */
+    //调用的接口名
     private Class<?> itf;
 
     public String getServiceUrl() {

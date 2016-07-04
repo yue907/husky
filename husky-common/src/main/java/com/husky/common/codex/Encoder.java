@@ -17,7 +17,7 @@ public class Encoder extends MessageToByteEncoder{
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
-        byte[] data = HessianSerialize.serialize(msg);
+        byte[] data = HessianSerialize.serialize(msg);//使用hessian2编码码
         out.writeInt(data.length);
         out.writeBytes(data);
     }

@@ -24,12 +24,10 @@ import java.util.Map;
  */
 public class RpcServer {
     private static final Logger logger =  LoggerFactory.getLogger(RpcServer.class);
-//    private static final String IP = "0.0.0.0";
-    private static final int PORT = 1234;
     /**
      * 用于分配处理业务线程的线程组个数
      */
-    protected static final int BIZGROUPSIZE = Runtime.getRuntime().availableProcessors() * 2;    //默认
+    protected static final int BIZGROUPSIZE = Runtime.getRuntime().availableProcessors() * 2;
     /**
      * 业务出现线程大小
      */
@@ -53,21 +51,19 @@ public class RpcServer {
 
             public void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-                pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-                pipeline.addLast("decoder", new Decoder());
-                pipeline.addLast("encoder", new Encoder());
+                pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));//tcp数据分包、组包
+                pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));//tcp数据分包、组包
+                pipeline.addLast("decoder", new Decoder());//解码器
+                pipeline.addLast("encoder", new Encoder());//编码器
                 pipeline.addLast(new NettyServerHandler(serviceManager.getServiceMap()));
+
             }
         });
         b.option(ChannelOption.SO_BACKLOG, 1024);
         b.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-        ChannelFuture future = b.bind(PORT).sync();
+        ChannelFuture future =  b.bind(serviceManager.getServiceConfig().getPort()).sync();
 
-//        b.bind(serviceManager.getServiceConfig().getPort()).sync();
-//        logger.info("TCP服务器已启动");
-        System.out.println("TCP服务器已启动");
 //        future.channel().closeFuture().sync();
     }
 
@@ -76,10 +72,5 @@ public class RpcServer {
         bossGroup.shutdownGracefully();
     }
 
-    public static void main(String[] args) throws Exception {
-//        logger.info("开始启动TCP服务器...");
-//        System.out.println("开始启动TCP服务器...");
-        RpcServer.run();
-//		TcpServer.shutdown();
-    }
+
 }

@@ -12,7 +12,6 @@ public class InvokerConfig {
     private String host;
     //端口
     private int port;
-//    private Object refObject;
 
     public InvokerConfig(String serviceUrl,Class interClass,String host,int port){
         this.serviceUrl = serviceUrl;
@@ -52,12 +51,4 @@ public class InvokerConfig {
     public void setPort(int port) {
         this.port = port;
     }
-
-    //    public Object getRefObject() {
-//        return refObject;
-//    }
-//
-//    public void setRefObject(Object refObject) {
-//        this.refObject = refObject;
-//    }
 }

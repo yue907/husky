@@ -1,6 +1,5 @@
 package com.husky.client.bean;
 
-import com.husky.client.proxy.CglibProxyFactory;
 import com.husky.client.proxy.ProxyFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,8 +36,7 @@ public class ProxyBeanFactory implements FactoryBean{
         }
         interClass = classLoader.loadClass(interName.trim());
         InvokerConfig invokerConfig = new InvokerConfig(serviceUrl.trim(),interClass,host.trim(),port);
-//        this.refObjexct = ProxyFactory.getProxy(invokerConfig);
-        this.refObjexct = CglibProxyFactory.getProxy(invokerConfig);
+        this.refObjexct = ProxyFactory.getProxy(invokerConfig);
     }
 
     public Object getObject() throws Exception {

@@ -27,7 +27,7 @@ public class Decoder extends ByteToMessageDecoder {
         }
         byte[] data = new byte[dataLength];
         in.readBytes(data);
-        Object obj = HessianSerialize.decode(data);
+        Object obj = HessianSerialize.decode(data);//使用hessian2解码
         out.add(obj);
     }
 }

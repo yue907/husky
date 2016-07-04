@@ -11,7 +11,7 @@ import java.util.Map;
 public class ServiceFactoryBean {
     //端口
     private int port;
-    //服务Map
+    //服务Map,key是服务远程URL，value是服务的实现类
     private Map<String,Object> services;
 
     public ServiceFactoryBean(){
@@ -31,7 +31,6 @@ public class ServiceFactoryBean {
     }
     //服务发布
     public void publish() throws Exception{
-//        ServicePublish.start();
         RpcServer.run();
     }
     public Map<String, Object> getServices() {

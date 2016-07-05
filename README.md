@@ -1,1 +1,1 @@
-# husky
+# a simple rpc frame base on netty and hessian

@@ -2,7 +2,7 @@ package com.husky.netty;
 
 import com.husky.common.codex.Decoder;
 import com.husky.common.codex.Encoder;
-import com.husky.register.ServiceManager;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,9 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-import io.netty.util.CharsetUtil;
+
+import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,13 +36,14 @@ public class RpcServer {
 
 
 
-    public static void run() throws Exception {
-        final ServiceManager serviceManager = ServiceManager.getServiceManager();
-        if (null == serviceManager)
-            throw new IllegalArgumentException("service instance == null");
-        if (serviceManager.getServiceConfig().getPort() <= 0 || serviceManager.getServiceConfig().getPort() > 65535)
-            throw new IllegalArgumentException("Invalid port " + serviceManager.getServiceConfig().getPort());
+    public static void start(final int port,final Map<String,Object> serviceMap) throws Exception {
 
+        if (port <= 0 || port > 65535)
+            throw new IllegalArgumentException("Invalid port " + port);
+
+        if(MapUtils.isEmpty(serviceMap)){
+            throw new IllegalArgumentException("service instance == null");
+        }
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup);
         b.channel(NioServerSocketChannel.class);
@@ -55,14 +55,14 @@ public class RpcServer {
                 pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));//tcp数据分包、组包
                 pipeline.addLast("decoder", new Decoder());//解码器
                 pipeline.addLast("encoder", new Encoder());//编码器
-                pipeline.addLast(new NettyServerHandler(serviceManager.getServiceMap()));
+                pipeline.addLast(new NettyServerHandler(serviceMap));
 
             }
         });
         b.option(ChannelOption.SO_BACKLOG, 1024);
         b.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-        ChannelFuture future =  b.bind(serviceManager.getServiceConfig().getPort()).sync();
+        ChannelFuture future =  b.bind(port).sync();
 
 //        future.channel().closeFuture().sync();
     }

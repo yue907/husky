@@ -1,6 +1,8 @@
 package com.husky.client.proxy;
 
+import com.husky.client.ClientManage;
 import com.husky.client.bean.InvokerConfig;
+import com.husky.client.bean.ServerConfig;
 import com.husky.client.netty.RpcClient;
 import com.husky.common.bean.InvocationRequest;
 import com.husky.common.bean.InvocationResponse;
@@ -17,9 +19,16 @@ import java.lang.reflect.Method;
 public class ProxyFactory {
     public static <T> T getProxy(InvokerConfig invokerConfig) throws Exception {
         isPositive(invokerConfig);
-        final String host = invokerConfig.getHost();
-        final int port = invokerConfig.getPort();
+//        final String host = invokerConfig.getHost();
+//        final int port = invokerConfig.getPort();
+
         final String serviceUrl = invokerConfig.getServiceUrl();
+        ServerConfig serverConfig = ClientManage.getServerConfig(serviceUrl);
+        if(null == serverConfig){
+            throw new RuntimeException("can not find server confgi");
+        }
+        final String host = serverConfig.getIp();
+        final int port = serverConfig.getPort();
         Enhancer enhancer = new Enhancer();
         enhancer.setInterfaces(new Class[]{invokerConfig.getInterClass()});
         enhancer.setCallback(new MethodInterceptor() {

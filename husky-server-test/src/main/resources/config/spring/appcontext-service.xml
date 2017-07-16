@@ -10,15 +10,14 @@
 
 
     <bean class="com.husky.register.ServiceFactoryBean" init-method="init" lazy-init="false">
-
+        <property name="port" value="1234"></property>
         <property name="services">
             <map>
-                <entry key="http://www.husky.com.cn/SendService_1.0" value-ref="sendService"/>
-                <entry key="http://www.husky.com.cn/EchoService_1.0" value-ref="echoService"/>
+                <entry key="sendService" value-ref="sendService"/>
+                <entry key="echoService" value-ref="echoService"/>
             </map>
         </property>
     </bean>
-
 
 
     <bean id="echoService" class="com.husky.server.test.service.impl.EchoServiceImpl">

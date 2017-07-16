@@ -14,6 +14,7 @@
         <module>husky-client-test</module>
         <module>husky-server-test</module>
         <module>husky-common</module>
+        <module>husky-register</module>
 
     </modules>
     <packaging>pom</packaging>

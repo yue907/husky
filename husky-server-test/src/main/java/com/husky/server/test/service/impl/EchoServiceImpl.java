@@ -15,7 +15,7 @@ public class EchoServiceImpl implements EchoService{
 //            return x/y;
 //        }
 //        return 0;
-        System.out.println("start to divide");
+  
         return x/y;
     }
 }
